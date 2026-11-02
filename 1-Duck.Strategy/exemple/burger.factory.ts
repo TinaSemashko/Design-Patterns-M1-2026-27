@@ -1,33 +1,33 @@
 export interface FilterStrategy {
-  removeValue(data: number): boolean;
+	removeValue(data: number): boolean;
 }
 
 class RemoveNegativeNumbers implements FilterStrategy {
-  removeValue(data: number): boolean {
-    return data < 0;
-  }
+	removeValue(data: number): boolean {
+		return data < 0;
+	}
 }
 
 class RemoveEvenNumbers implements FilterStrategy {
-  removeValue(data: number): boolean {
-    return data % 2 === 0;
-  }
+	removeValue(data: number): boolean {
+		return data % 2 === 0;
+	}
 }
 
 class DataFilter {
-  private strategy: FilterStrategy;
+	private strategy: FilterStrategy;
 
-  constructor(strategy: FilterStrategy) {
-    this.strategy = strategy;
-  }
+	constructor(strategy: FilterStrategy) {
+		this.strategy = strategy;
+	}
 
-  setStrategy(strategy: FilterStrategy) {
-    this.strategy = strategy;
-  }
+	setStrategy(strategy: FilterStrategy) {
+		this.strategy = strategy;
+	}
 
-  filterData(data: number[]): number[] {
-    return data.filter((value) => !this.strategy.removeValue(value));
-  }
+	filterData(data: number[]): number[] {
+		return data.filter((value) => !this.strategy.removeValue(value));
+	}
 }
 
 // Example usage:

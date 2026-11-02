@@ -1,13 +1,28 @@
-export class Duck {
-  quack() {
-    console.log("Quack!");
-  }
+import type { FlyBehavior } from "@/fly-behaviors/fly.behavior";
 
-  swim() {
-    console.log("Swimming!");
-  }
+export abstract class Duck {
+	protected flyBehavior: FlyBehavior;
 
-  display() {
-    console.log("I'm a duck!");
-  }
+	constructor(flyBehavior: FlyBehavior) {
+		this.flyBehavior = flyBehavior;
+	}
+
+	performFly(): string {
+		return this.flyBehavior.fly();
+	}
+
+	setFlyBehavior(flyBehavior: FlyBehavior): void {
+		this.flyBehavior = flyBehavior;
+	}
+
+	swim(): string {
+		return "Swimming!";
+	}
+
+	quack(): string {
+		return "Quack!";
+	}
+
+	// Each duck type must provide its own display
+	abstract display(): string;
 }
