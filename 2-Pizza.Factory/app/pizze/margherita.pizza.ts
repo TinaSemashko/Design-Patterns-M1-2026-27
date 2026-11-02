@@ -11,3 +11,9 @@ export class ChicagoStyleMargheritaPizza extends BasePizza {
 		super("Chicago Margherita Pizza");
 	}
 }
+
+export class NYStyleMargheritaPizza extends BasePizza {
+	constructor() {
+		super("NY Style Margherita Pizza");
+	}
+}

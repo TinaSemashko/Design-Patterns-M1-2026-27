@@ -11,3 +11,9 @@ export class ChicagoStyleVeggiePizza extends BasePizza {
 		super("Chicago Veggie Pizza");
 	}
 }
+
+export class NYStyleVeggiePizza extends BasePizza {
+	constructor() {
+		super("NY Style Veggie Pizza");
+	}
+}

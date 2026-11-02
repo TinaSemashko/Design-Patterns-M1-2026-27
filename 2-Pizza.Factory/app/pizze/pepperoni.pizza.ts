@@ -7,7 +7,13 @@ export class NapoliStylePepperoniPizza extends BasePizza {
 }
 
 export class ChicagoStylePepperoniPizza extends BasePizza {
+    constructor() {
+      super("Chicago Pepperoni Pizza");
+    }
+  }
+
+export class NYStylePepperoniPizza extends BasePizza {
 	constructor() {
-		super("Chicago Pepperoni Pizza");
+		super("NY Style Pepperoni Pizza");
 	}
 }
