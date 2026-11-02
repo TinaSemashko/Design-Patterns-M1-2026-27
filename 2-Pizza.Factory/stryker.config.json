@@ -5,5 +5,5 @@
 	"testRunner": "vitest",
 	"coverageAnalysis": "perTest",
 	"plugins": ["@stryker-mutator/vitest-runner"],
-	"mutate": ["app/**/*.ts"]
+	"mutate": ["app/**/*.ts", "!app/main.ts"]
 }

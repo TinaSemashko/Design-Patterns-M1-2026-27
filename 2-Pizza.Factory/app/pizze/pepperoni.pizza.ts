@@ -1,43 +1,13 @@
-import { Pizza } from "./pizza";
+import { BasePizza } from "./base.pizza";
 
-export class NapoliStylePepperoniPizza implements Pizza {
-  getName(): string {
-    return "Pepperoni Pizza";
-  }
-
-  prepare(): void {
-    console.log("Preparing Pepperoni Pizza");
-  }
-
-  bake(): void {
-    console.log("Baking Pepperoni Pizza");
-  }
-  cut(): void {
-    console.log("Cutting Pepperoni Pizza");
-  }
-
-  box(): void {
-    console.log("Boxing Pepperoni Pizza");
-  }
+export class NapoliStylePepperoniPizza extends BasePizza {
+	constructor() {
+		super("NapoliStyle Pepperoni Pizza");
+	}
 }
 
-export class ChicagoStylePepperoniPizza implements Pizza {
-  getName(): string {
-    return "Pepperoni Pizza";
-  }
-
-  prepare(): void {
-    console.log("Preparing Pepperoni Pizza");
-  }
-
-  bake(): void {
-    console.log("Baking Pepperoni Pizza");
-  }
-  cut(): void {
-    console.log("Cutting Pepperoni Pizza");
-  }
-
-  box(): void {
-    console.log("Boxing Pepperoni Pizza");
-  }
+export class ChicagoStylePepperoniPizza extends BasePizza {
+	constructor() {
+		super("Chicago Pepperoni Pizza");
+	}
 }
