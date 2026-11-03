@@ -1,28 +1,36 @@
-import {
-  CurrentConditionsDisplay,
-  StatisticsDisplay,
-  ForecastDisplay,
-} from "./display/display";
 
-export class WeatherData {
-  private temperature: number = 0;
-  private humidity: number = 0;
-  private pressure: number = 0;
+import { Observer, Subject } from "./observer";
 
-  private currentDisplay: CurrentConditionsDisplay;
-  private statisticsDisplay: StatisticsDisplay;
-  private forecastDisplay: ForecastDisplay;
+export class WeatherData implements Subject {
+  private observers: Observer[] = [];
+  private temperature: number;
+  private humidity: number;
+  private pressure: number;
 
-  constructor(
-    currentDisplay: CurrentConditionsDisplay,
-    statisticsDisplay: StatisticsDisplay,
-    forecastDisplay: ForecastDisplay
-  ) {
-    this.currentDisplay = currentDisplay;
-    this.statisticsDisplay = statisticsDisplay;
-    this.forecastDisplay = forecastDisplay;
+  constructor() {
+    this.temperature = 0;
+    this.humidity = 0;
+    this.pressure = 0;
   }
 
+  registerObserver(observer: Observer): void {
+    if (!this.observers.includes(observer)) {
+      this.observers.push(observer);
+    }
+  }
+
+  removeObserver(observer: Observer): void {
+    const index = this.observers.indexOf(observer);
+    if (index !== -1) {
+      this.observers.splice(index, 1);
+    }
+  }
+
+  notifyObservers(): void {
+    for (const observer of this.observers) {
+      observer.update(this.temperature, this.humidity, this.pressure);
+    }
+  }
   setMeasurements(
     temperature: number,
     humidity: number,
@@ -32,18 +40,7 @@ export class WeatherData {
     this.humidity = humidity;
     this.pressure = pressure;
 
-    this.measurementsChanged();
+    this.notifyObservers();
   }
 
-  private measurementsChanged(): void {
-    this.currentDisplay.update(this.temperature, this.humidity, this.pressure);
-
-    this.statisticsDisplay.update(
-      this.temperature,
-      this.humidity,
-      this.pressure
-    );
-
-    this.forecastDisplay.update(this.temperature, this.humidity, this.pressure);
-  }
 }
