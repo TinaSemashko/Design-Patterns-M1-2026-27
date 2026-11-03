@@ -1,16 +1,19 @@
+interface Shape {
+  getArea(): number;
+}
+
+
+
 /**
  * Rectangle représente une forme dont la largeur et la hauteur
  * sont indépendantes.
  */
-class Rectangle {
-  protected width: number = 0;
-  protected height: number = 0;
+class Rectangle implements Shape {
+  private width: number;
+  private height: number;
 
-  setWidth(width: number) {
+constructor(width: number, height: number) {
     this.width = width;
-  }
-
-  setHeight(height: number) {
     this.height = height;
   }
 
@@ -19,32 +22,17 @@ class Rectangle {
   }
 }
 
-/**
- * Square hérite de Rectangle en supposant que
- * "un carré est un rectangle".
- *
- * PROBLÈME :
- * Un carré impose une contrainte supplémentaire :
- * width === height
- *
- * Cette contrainte n'existe PAS dans Rectangle.
- */
-class Square extends Rectangle {
-  /**
-   * Pour garantir width === height,
-   * on est obligé de modifier la hauteur
-   * quand la largeur change.
-   *
-   * => On casse le contrat implicite de Rectangle.
-   */
-  setWidth(width: number) {
-    this.width = width;
-    this.height = width;
+
+class Square implements Shape {
+
+  private side: number;
+
+  constructor(side: number) {
+    this.side = side;
   }
 
-  setHeight(height: number) {
-    this.width = height;
-    this.height = height;
+  getArea(): number {
+    return this.side * this.side;
   }
 }
 
@@ -55,24 +43,16 @@ class Square extends Rectangle {
  * être utilisée partout où sa classe mère est attendue,
  * sans modifier le comportement du programme."
  *
- * Ici :
- * - Rectangle permet de modifier largeur et hauteur indépendamment
- * - Square empêche cette indépendance
- *
- * => Square renforce les invariants
- * => Square n'est PAS substituable à Rectangle
- *
- * => Violation du LSP
+
  */
 
-function draw(rect: Rectangle) {
-  rect.setWidth(10);
-  rect.setHeight(20);
-  console.log(`Area: ${rect.getArea()}`); // Attendu : 200
+function draw(shape: Shape) {
+  console.log(`Area: ${shape.getArea()}`);
 }
 
-const myRect = new Rectangle();
+const myRect = new Rectangle(10, 20);
 draw(myRect); // Area: 200
 
-const mySquare = new Square();
-draw(mySquare); // Area: 400 (???) Violation du LSP
+const mySquare = new Square(10);
+draw(mySquare); // Area: 100 
+
