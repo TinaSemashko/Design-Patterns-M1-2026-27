@@ -1,15 +1,15 @@
-import { StripePayment, PaypalPayment } from "./payment-methode/payment";
+
+import { PaymentGateway } from "./payment.gateway";
 
 export class PaymentService {
-  pay(amount: number, provider: "stripe" | "paypal"): void {
-    if (provider === "stripe") {
-      const stripe = new StripePayment();
-      stripe.makePayment(amount * 100);
-    }
+  private gateway: PaymentGateway;
 
-    if (provider === "paypal") {
-      const paypal = new PaypalPayment();
-      paypal.sendPayment(amount, "EUR");
-    }
+  constructor(gateway: PaymentGateway) {
+    this.gateway = gateway;
+  }
+
+  pay(amount: number): void {
+    this.gateway.processPayment(amount);
   }
 }
+
