@@ -8,33 +8,51 @@ const nodes: ParserNode[] = [
   { type: "paragraph", text: "This is a simple paragraph." },
 ];
 
-type MailFormat = "text" | "html";
 
-class Sender {
-  sendByMail(to: string, format: MailFormat, content: string): void {
+interface Formatter {
+  format(nodes: ParserNode[]): string;
+}
+
+class TextFormatter implements Formatter {
+  format(nodes: ParserNode[]): string {
     let text = "";
-
-    if (format === "text") {
-      for (const node of nodes) {
+     for (const node of nodes) {
         text += `${node.text}\n\n`;
       }
-    } else if (format === "html") {
-      for (const node of nodes) {
+      return text;
+  }
+}
+
+class HtmlFormatter implements Formatter {
+  format(nodes: ParserNode[]): string {
+    let text = "";
+
+     for (const node of nodes) {
         if (node.type === "title") {
           text += `<h1>${node.text}</h1>\n`;
         } else if (node.type === "paragraph") {
           text += `<p>${node.text}</p>\n`;
         }
       }
-    }
+      return text;
+  }
+}
+
+class Sender {
+  sendByMail(to: string, formatter: Formatter, nodes: ParserNode[]): void {
+
 
     console.log(`Sending mail to: ${to}`);
     console.log("Content:");
-    console.log(text);
+    console.log(formatter.format(nodes));
     console.log("Mail sent!");
   }
 }
 
 // Exemple d'utilisation
 const sender = new Sender();
-sender.sendByMail("test@mail.com", "text", "");
+const textFormatter = new TextFormatter();
+const htmlFormatter = new HtmlFormatter();
+
+sender.sendByMail("test@mail.com", textFormatter, nodes);
+sender.sendByMail("test@mail.com", htmlFormatter, nodes);
