@@ -1,16 +1,13 @@
-import {
-  ChicagoPizzaStoreFactory,
-  NapoliPizzaStoreFactory,
-} from "./pizza.store";
+import { ChicagoPizzaStore, NYPizzaStore } from "./pizza.store";
 
 function main() {
-  const myStore = new NapoliPizzaStoreFactory();
-  const chicagoStore = new ChicagoPizzaStoreFactory();
+	const myStore = new NYPizzaStore();
+	const chicagoStore = new ChicagoPizzaStore();
 
-  const pizza1 = myStore.orderPizza("margherita");
-  console.log(`Ordered a ${pizza1.getName()}\n`);
+	const pizza1 = myStore.orderPizza("cheese");
+	console.log(`Ordered a ${pizza1.getName()}\n`);
 
-  const pizza2 = chicagoStore.orderPizza("veggie");
-  console.log(`Ordered a ${pizza2.getName()}\n`);
+	const pizza2 = chicagoStore.orderPizza("cheese");
+	console.log(`Ordered a ${pizza2.getName()}\n`);
 }
 main();

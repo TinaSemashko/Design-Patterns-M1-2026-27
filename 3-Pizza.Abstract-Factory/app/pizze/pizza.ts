@@ -1,33 +1,42 @@
-import {
-  ThinCrustDough,
-  MarinaraSauce,
-  ReggianoCheese,
-} from "@/ingredients/ingredients";
+import type { Cheese, Dough, Sauce } from "@/ingredients/ingredients";
+import type { PizzaIngredientFactory } from "@/ingredients/pizza-ingredient.factory";
 
 export abstract class Pizza {
-  protected name!: string;
+	protected name: string;
+	protected dough: Dough;
+	protected sauce: Sauce;
+	protected cheese: Cheese;
 
-  abstract prepare(): void;
+	constructor(name: string, factory: PizzaIngredientFactory) {
+		this.name = name;
+		this.dough = factory.createDough();
+		this.sauce = factory.createSauce();
+		this.cheese = factory.createCheese();
+	}
 
-  bake(): void {
-    console.log("Bake for 25 minutes at 350");
-  }
+	getName(): string {
+		return this.name;
+	}
 
-  cut(): void {
-    console.log("Cutting the pizza into diagonal slices");
-  }
+	abstract prepare(): void;
 
-  box(): void {
-    console.log("Place pizza in official PizzaStore box");
-  }
+	bake(): void {
+		console.log("Bake for 25 minutes at 350");
+	}
+
+	cut(): void {
+		console.log("Cutting the pizza into diagonal slices");
+	}
+
+	box(): void {
+		console.log("Place pizza in official PizzaStore box");
+	}
 }
 
 export class CheesePizza extends Pizza {
-  prepare(): void {
-    console.log(`Preparing ${this.name}`);
-
-    const dough = new ThinCrustDough(); // ❌ dépendance concrète
-    const sauce = new MarinaraSauce();
-    const cheese = new ReggianoCheese();
-  }
+	prepare(): void {
+		console.log(
+			`Preparing ${this.name} with ${this.dough.getName()}, ${this.sauce.getName()}, and ${this.cheese.getName()}`,
+		);
+	}
 }

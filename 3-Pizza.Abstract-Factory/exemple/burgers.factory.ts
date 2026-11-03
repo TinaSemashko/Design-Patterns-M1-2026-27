@@ -1,29 +1,29 @@
 class Burger {
-  constructor(
-    public ingredients: string[],
-    public size: "small" | "medium" | "large"
-  ) {}
+	constructor(
+		public ingredients: string[],
+		public size: "small" | "medium" | "large",
+	) {}
 
-  describe() {
-    return `A ${this.size} burger with ${this.ingredients.join(", ")}.`;
-  }
+	describe() {
+		return `A ${this.size} burger with ${this.ingredients.join(", ")}.`;
+	}
 }
 
 class BurgerFactory {
-  static createCheeseburger(size: "small" | "medium" | "large") {
-    return new Burger(["beef patty", "cheese", "lettuce", "tomato"], size);
-  }
+	static createCheeseburger(size: "small" | "medium" | "large") {
+		return new Burger(["beef patty", "cheese", "lettuce", "tomato"], size);
+	}
 
-  static createVeggieBurger(size: "small" | "medium" | "large") {
-    return new Burger(["veggie patty", "lettuce", "tomato", "onion"], size);
-  }
+	static createVeggieBurger(size: "small" | "medium" | "large") {
+		return new Burger(["veggie patty", "lettuce", "tomato", "onion"], size);
+	}
 
-  static createBaconBurger(size: "small" | "medium" | "large") {
-    return new Burger(
-      ["beef patty", "bacon", "cheese", "lettuce", "tomato"],
-      size
-    );
-  }
+	static createBaconBurger(size: "small" | "medium" | "large") {
+		return new Burger(
+			["beef patty", "bacon", "cheese", "lettuce", "tomato"],
+			size,
+		);
+	}
 }
 
 // Example usage:
