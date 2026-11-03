@@ -1,5 +1,5 @@
-import { ArticleRepository } from "../data-layer/article.repository"; // <--- Dependency from data layer on APP LAYER
 import { Article } from "./article";
+import { ArticleRepository } from "./article.repository.interface";
 
 export class ArticleController {
   constructor(private readonly articleRepository: ArticleRepository) {}
